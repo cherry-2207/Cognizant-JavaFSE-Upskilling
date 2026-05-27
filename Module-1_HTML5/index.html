@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Community Event Portal</title>
+
+    <style>
+      body {
+        margin: 20px;
+      }
+
+      nav a {
+        margin-right: 15px;
+        text-decoration: none;
+      }
+
+      #welcomeBanner {
+        background-color: blue;
+        color: white;
+        text-align: center;
+        padding: 15px;
+      }
+
+      .highlight {
+        font-weight: bold;
+        color: rgb(0, 255, 26);
+      }
+
+      .table-border {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 8px;
+      }
+
+      input,
+      textarea,
+      select,
+      button {
+        margin-top: 10px;
+        margin-bottom: 15px;
+        padding: 8px;
+        width: 300px;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      #phoneMessage,
+      #feeDisplay,
+      #charCount,
+      #videoMessage {
+        font-weight: bold;
+      }
+
+      .event-image {
+        max-width: 100px;
+        max-height: 100px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .large {
+        max-width: 250px;
+        max-height: 250px;
+      }
+
+      video {
+        margin-top: 15px;
+        border: 2px solid black;
+      }
+
+      section {
+        margin-top: 30px;
+      }
+    </style>
+    <script>
+      window.onload = function () {
+        const savedEvent = localStorage.getItem("preferredEvent");
+
+        if (savedEvent) {
+          document.getElementById("eventPreference").value = savedEvent;
+        }
+      };
+    </script>
+  </head>
+
+  <body onbeforeunload="return 'Are you sure you want to leave this page?';">
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#events">Events</a>
+        <a href="#feedback">Feedback</a>
+        <a href="#contact">Contact</a>
+        <a href="./help.html" target="_blank">Help</a>
+        <a href="./register.html" target="_blank">Register</a>
+      </nav>
+    </header>
+
+    <!-- Welcome Banner -->
+    <main>
+      <div id="welcomeBanner">
+        <h1>Welcome, User!</h1>
+
+        <p>
+          Enjoy our
+          <span style="font-weight: bold; color: red">20% off</span>
+          on tickets (valid till 01.06.2026)
+        </p>
+      </div>
+    </main>
+
+    <!-- Home Section -->
+    <section id="home">
+      <h1>Home</h1>
+      <p>Welcome to the Community Event Portal</p>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events">
+      <h1>Featured Events</h1>
+
+      <p>The available events are:</p>
+
+      <label>Select Event:</label>
+      <br />
+
+      <!-- onchange event -->
+      <select
+        onchange="
+          document.getElementById('feeDisplay').innerHTML = this.value
+            ? 'Selected Event Fee: ₹' + this.value
+            : ''
+        "
+      >
+        <option value="">-- Choose Event --</option>
+        <option value="200">DJ Night</option>
+        <option value="500">Food Festival</option>
+        <option value="300">Musical Concert</option>
+      </select>
+
+      <p id="feeDisplay"></p>
+    </section>
+
+    <!-- Saving User Preferences -->
+    <section id="preferences">
+      <h1>Save Event Preferences</h1>
+
+      <label>Select Preferred Event Type:</label>
+      <br />
+
+      <select
+        id="eventPreference"
+        onchange="
+          localStorage.setItem('preferredEvent', this.value);
+          sessionStorage.setItem('sessionEvent', this.value);
+        "
+      >
+        <option value="">-- Select Preference --</option>
+        <option value="DJ Night">DJ Night</option>
+        <option value="Food Festival">Food Festival</option>
+        <option value="Musical Concert">Musical Concert</option>
+      </select>
+
+      <br />
+
+      <button
+        onclick="
+          localStorage.clear();
+          sessionStorage.clear();
+          document.getElementById('eventPreference').value = '';
+          alert('Preferences Cleared!');
+        "
+      >
+        Clear Preferences
+      </button>
+    </section>
+
+    <!-- Geolocation -->
+    <section id="location">
+      <h1>Find Nearby Events</h1>
+
+      <button
+        onclick="
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              function (position) {
+                document.getElementById('locationResult').innerHTML =
+                  'Latitude: ' +
+                  position.coords.latitude +
+                  '<br>Longitude: ' +
+                  position.coords.longitude;
+              },
+
+              function (error) {
+                switch (error.code) {
+                  case error.PERMISSION_DENIED:
+                    document.getElementById('locationResult').innerHTML =
+                      'Location access denied by user.';
+                    break;
+
+                  case error.TIMEOUT:
+                    document.getElementById('locationResult').innerHTML =
+                      'Location request timed out.';
+                    break;
+
+                  default:
+                    document.getElementById('locationResult').innerHTML =
+                      'Unable to retrieve location.';
+                }
+              },
+
+              {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0,
+              },
+            );
+          } else {
+            document.getElementById('locationResult').innerHTML =
+              'Geolocation is not supported in this browser.';
+          }
+        "
+      >
+        Find Nearby Events
+      </button>
+
+      <p id="locationResult"></p>
+    </section>
+
+    <!-- Promo Video -->
+    <section>
+      <h1>Event Promo Video</h1>
+
+      <!-- oncanplay event -->
+      <video
+        width="500"
+        controls
+        oncanplay="
+          document.getElementById('videoMessage').innerHTML =
+            'Video ready to play!'
+        "
+      >
+        <source src="./static/event-promo.mp4" type="video/mp4" />
+      </video>
+
+      <p id="videoMessage"></p>
+    </section>
+
+    <!-- Past Events -->
+    <section>
+      <h1>Discover Our Past Events</h1>
+
+      <table class="table-border">
+        <tr>
+          <th class="table-border">Event Name</th>
+          <th class="table-border">Image</th>
+          <th class="table-border">Description</th>
+        </tr>
+
+        <tr>
+          <td class="table-border">Food Festival</td>
+
+          <td class="table-border">
+            <!-- ondblclick event -->
+            <img
+              class="event-image"
+              ondblclick="this.classList.toggle('large')"
+              src="./static/food-festival.jpg"
+              alt="food-festival"
+            />
+          </td>
+
+          <td class="table-border">
+            Organized a food festival with discounted prices
+          </td>
+        </tr>
+
+        <tr>
+          <td class="table-border">Volunteering</td>
+
+          <td class="table-border">
+            <!-- ondblclick event -->
+            <img
+              class="event-image"
+              ondblclick="this.classList.toggle('large')"
+              src="./static/volunteering.jpg"
+              alt="volunteering"
+            />
+          </td>
+
+          <td class="table-border">
+            Organized volunteer services for orphanages
+          </td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- Feedback -->
+    <section id="feedback">
+      <h1>Event Feedback Form</h1>
+
+      <!-- onblur event -->
+      <label>Phone Number:</label>
+      <br />
+
+      <input
+        type="text"
+        onblur="
+          if (/^[0-9]{10}$/.test(this.value)) {
+            phoneMessage.innerHTML = 'Valid Phone Number';
+            phoneMessage.style.color = 'green';
+          } else {
+            phoneMessage.innerHTML = 'Invalid Phone Number';
+            phoneMessage.style.color = 'red';
+          }
+        "
+      />
+
+      <p id="phoneMessage"></p>
+
+      <!-- keyboard events -->
+      <label>Feedback:</label>
+      <br />
+
+      <textarea
+        rows="5"
+        onkeyup="charCount.innerHTML = 'Characters: ' + this.value.length"
+        onkeydown="charCount.innerHTML = 'Characters: ' + this.value.length"
+      ></textarea>
+
+      <p id="charCount">Characters: 0</p>
+
+      <!-- onclick event -->
+      <button onclick="alert('Feedback Submitted Successfully!')">
+        Submit Feedback
+      </button>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h1>Contact</h1>
+      <p>Email: support@example.com</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p class="highlight">Registration closes on 05.06.2026</p>
+      <p>&copy; Community Events Portal</p>
+    </footer>
+  </body>
+</html>

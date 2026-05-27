@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+    <style>
+      #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      input {
+        margin: 10px;
+      }
+    </style>
+    <script>
+      function showMessage() {
+        document.getElementById("output-text").innerHTML = `
+          <p> Registered Successfully!!! </p>
+        `;
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 style="text-align: center">Registration Page</h1>
+    </header>
+    <main>
+      <div id="container">
+        <form onsubmit="showMessage()">
+          Name: <input type="text" required="true" /> <br />
+          Email: <input type="email" required="true" /> <br />
+          Date: <input type="date" /> <br />
+          Event Type: <br />
+          <input type="checkbox" />
+          <label for="option1">DJ Night</label> <br />
+          <input type="checkbox" />
+          <label for="option2">Food Festival</label> <br />
+          <input type="checkbox" />
+          <label for="option3">Musical Concert</label>
+          <br />
+          <input type="submit" />
+          <input type="reset" />
+          <output id="output-text" style="color: green"></output>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

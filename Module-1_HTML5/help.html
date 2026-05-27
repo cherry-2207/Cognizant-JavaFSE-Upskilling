@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Page</title>
+    <script>
+      function submitted() {
+        document.getElementById("output-text").innerHTML =
+          `<p> Query Submitted successfully!!! </p>`;
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1>Help Page</h1>
+      <p>This page is to help you out with your queires</p>
+    </header>
+    <main>
+      <form action="#" onsubmit="submitted()">
+        <textarea name="" id="" rows="4" required="true"> </textarea>
+        <br />
+        <input type="submit" />
+      </form>
+    </main>
+    <p>Feel free to ask anything</p>
+    <output style="color: green" id="output-text"></output>
+  </body>
+</html>
