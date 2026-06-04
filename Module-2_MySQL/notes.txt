@@ -1,0 +1,46 @@
+1. Identify what the question is asking - Extract requirement
+2. Identify the output
+3. Find missing information
+4. Draw relationships
+5. Convert conditions one by one
+6. Determine query type
+    |----- Simple Retrieval
+    |----- Aggregation
+    |----- Filtering Aggregrates
+    |----- Nested Logic
+    |----- Ranking
+7. Build Query Incrementally
+
+Master Template:
+
+1. What is the output?
+   ↓
+   SELECT
+
+2. Which table owns the output?
+   ↓
+   FROM
+
+3. What other information is needed?
+   ↓
+   JOIN
+
+4. What conditions exist?
+   ↓
+   WHERE
+
+5. Need grouping?
+   ↓
+   GROUP BY
+
+6. Need aggregate filtering?
+   ↓
+   HAVING
+
+7. Need sorting?
+   ↓
+   ORDER BY
+
+8. Need top N?
+   ↓
+   LIMIT / ROW_NUMBER
