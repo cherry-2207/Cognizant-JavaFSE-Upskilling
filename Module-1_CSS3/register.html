@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      function showMessage() {
+        document.getElementById("output-text").innerHTML = `
+          <p> Registered Successfully!!! </p>
+        `;
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <h1 style="color: red; text-align: center">Registration Page</h1>
+    </header>
+    <main class="pageShell">
+      <div class="contentSection formContainer">
+        <form onsubmit="showMessage()">
+          Name: <input type="text" required="true" /> <br />
+          Email: <input type="email" required="true" /> <br />
+          Date: <input type="date" /> <br />
+          Event Type: <br />
+          <input type="checkbox" />
+          <label for="option1">DJ Night</label> <br />
+          <input type="checkbox" />
+          <label for="option2">Food Festival</label> <br />
+          <input type="checkbox" />
+          <label for="option3">Musical Concert</label>
+          <br />
+          <input type="submit" />
+          <input type="reset" />
+          <output id="output-text" style="color: green"></output>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

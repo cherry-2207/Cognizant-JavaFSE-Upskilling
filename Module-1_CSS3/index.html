@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Community Event Portal</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <style>
+      body {
+        background-color: #eef7f4;
+      }
+    </style>
+
+    <script>
+      window.onload = function () {
+        const savedEvent = localStorage.getItem("preferredEvent");
+
+        if (savedEvent) {
+          document.getElementById("eventPreference").value = savedEvent;
+        }
+      };
+    </script>
+  </head>
+
+  <body onbeforeunload="return 'Are you sure you want to leave this page?';">
+    <header id="mainHeader">
+      <nav class="siteNav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#admin">Admin</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="./help.html" target="_blank">Help</a></li>
+          <li><a href="./register.html" target="_blank">Register</a></li>
+        </ul>
+      </nav>
+
+      <div class="heroContent">
+        <h1 style="color: red">Welcome, User!</h1>
+        <p>
+          Enjoy our
+          <span class="highlight">20% off</span>
+          on tickets until 01.06.2026.
+        </p>
+        <a class="cta-button" href="./register.html">Register Now</a>
+      </div>
+    </header>
+
+    <main class="pageShell">
+      <section id="home" class="contentSection">
+        <h2>Home</h2>
+        <p class="sectionDescription">
+          The Local Community Event Portal helps residents discover cultural programs,
+          workshops, volunteering drives, and city celebrations in one friendly space.
+        </p>
+      </section>
+
+      <section id="events" class="contentSection">
+        <h2>Featured Events</h2>
+        <p class="sectionDescription">Browse events by type and save your preferred category.</p>
+
+        <div class="eventGrid">
+          <article class="eventCard selected">
+            <img class="event-image" src="./static/food-festival.jpg" alt="Food festival" />
+            <h3>Food Festival</h3>
+            <p>Local chefs, street food stalls, and budget-friendly family meals.</p>
+          </article>
+
+          <article class="eventCard">
+            <img class="event-image" src="./static/volunteering.jpg" alt="Volunteering event" />
+            <h3>Volunteering</h3>
+            <p>Community service programs for schools, shelters, and neighborhood groups.</p>
+          </article>
+
+          <article class="eventCard hiddenExample">
+            <h3>visibility: hidden</h3>
+            <p>This card keeps its layout space while hiding the content.</p>
+          </article>
+
+          <article class="eventCard noneExample">
+            <h3>display: none</h3>
+            <p>This card is removed from the layout entirely.</p>
+          </article>
+        </div>
+
+        <form class="preferenceForm">
+          <label for="eventType">Select Event:</label>
+          <select
+            id="eventType"
+            onchange="
+              document.getElementById('feeDisplay').innerHTML = this.value
+                ? 'Selected Event Fee: Rs. ' + this.value
+                : ''
+            "
+          >
+            <option value="">-- Choose Event --</option>
+            <option value="200">DJ Night</option>
+            <option value="500">Food Festival</option>
+            <option value="300">Musical Concert</option>
+          </select>
+          <p id="feeDisplay"></p>
+        </form>
+      </section>
+
+      <section id="preferences" class="contentSection">
+        <h2>Save Event Preferences</h2>
+        <label for="eventPreference">Select Preferred Event Type:</label>
+        <select
+          id="eventPreference"
+          onchange="
+            localStorage.setItem('preferredEvent', this.value);
+            sessionStorage.setItem('sessionEvent', this.value);
+          "
+        >
+          <option value="">-- Select Preference --</option>
+          <option value="DJ Night">DJ Night</option>
+          <option value="Food Festival">Food Festival</option>
+          <option value="Musical Concert">Musical Concert</option>
+        </select>
+
+        <button
+          class="secondaryButton"
+          onclick="
+            localStorage.clear();
+            sessionStorage.clear();
+            document.getElementById('eventPreference').value = '';
+            alert('Preferences Cleared!');
+          "
+          type="button"
+        >
+          Clear Preferences
+        </button>
+      </section>
+
+      <section id="location" class="contentSection">
+        <h2>Find Nearby Events</h2>
+        <button
+          class="cta-button"
+          onclick="
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                function (position) {
+                  document.getElementById('locationResult').innerHTML =
+                    'Latitude: ' +
+                    position.coords.latitude +
+                    '<br>Longitude: ' +
+                    position.coords.longitude;
+                },
+                function () {
+                  document.getElementById('locationResult').innerHTML =
+                    'Unable to retrieve location.';
+                },
+                {
+                  enableHighAccuracy: true,
+                  timeout: 10000,
+                  maximumAge: 0,
+                },
+              );
+            } else {
+              document.getElementById('locationResult').innerHTML =
+                'Geolocation is not supported in this browser.';
+            }
+          "
+          type="button"
+        >
+          Find Nearby Events
+        </button>
+        <p id="locationResult"></p>
+      </section>
+
+      <section id="news" class="contentSection">
+        <h2>Community Bulletin</h2>
+        <article class="newsArticle">
+          <p>
+            This month, the city council is supporting neighborhood-led events that
+            bring residents together through music, food, education, and service.
+            Volunteers are invited to help with registration desks, accessibility
+            support, venue setup, and post-event feedback collection.
+          </p>
+          <p>
+            Families can attend weekend workshops at the civic hall, students can
+            join coding and design bootcamps, and senior citizens can participate in
+            wellness sessions hosted by local health partners.
+          </p>
+        </article>
+      </section>
+
+      <section id="admin" class="contentSection">
+        <h2>Events Admin Table</h2>
+        <table class="eventsTable">
+          <thead>
+            <tr>
+              <th>Event Name</th>
+              <th>Category</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Food Festival</td>
+              <td>Culture</td>
+              <td>10.06.2026</td>
+              <td>Open</td>
+            </tr>
+            <tr>
+              <td>Volunteering Drive</td>
+              <td>Service</td>
+              <td>12.06.2026</td>
+              <td>Open</td>
+            </tr>
+            <tr>
+              <td>Musical Concert</td>
+              <td>Entertainment</td>
+              <td>18.06.2026</td>
+              <td>Filling Fast</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="feedback" class="contentSection">
+        <h2>Event Feedback Form</h2>
+        <form class="feedbackForm">
+          <label for="phone">Phone Number:</label>
+          <input
+            id="phone"
+            class="selectedField"
+            type="text"
+            onblur="
+              if (/^[0-9]{10}$/.test(this.value)) {
+                phoneMessage.innerHTML = 'Valid Phone Number';
+                phoneMessage.style.color = 'green';
+              } else {
+                phoneMessage.innerHTML = 'Invalid Phone Number';
+                phoneMessage.style.color = 'red';
+              }
+            "
+          />
+          <p id="phoneMessage"></p>
+
+          <label for="feedbackText">Feedback:</label>
+          <textarea
+            id="feedbackText"
+            rows="5"
+            onkeyup="charCount.innerHTML = 'Characters: ' + this.value.length"
+            onkeydown="charCount.innerHTML = 'Characters: ' + this.value.length"
+          ></textarea>
+          <p id="charCount">Characters: 0</p>
+
+          <button class="cta-button" onclick="alert('Feedback Submitted Successfully!')" type="button">
+            Submit Feedback
+          </button>
+        </form>
+      </section>
+
+      <section id="debug" class="contentSection debugChecklist">
+        <h2>Debug and Test Checklist</h2>
+        <ul>
+          <li>Use Chrome DevTools device toolbar to test widths below 768px.</li>
+          <li>Inspect navigation, images, and cards to adjust live CSS values.</li>
+          <li>Open the Network tab and confirm <code>styles.css</code> loads successfully.</li>
+        </ul>
+      </section>
+
+      <section id="contact" class="contentSection">
+        <h2>Contact</h2>
+        <p>Email: support@example.com</p>
+      </section>
+    </main>
+
+    <footer class="siteFooter">
+      <p class="highlight">Registration closes on 05.06.2026</p>
+      <p>&copy; Community Events Portal</p>
+    </footer>
+  </body>
+</html>

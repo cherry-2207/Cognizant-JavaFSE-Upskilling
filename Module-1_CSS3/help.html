@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Help Page</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      function submitted() {
+        document.getElementById("output-text").innerHTML =
+          `<p> Query Submitted successfully!!! </p>`;
+      }
+    </script>
+  </head>
+  <body>
+    <header id="mainHeader">
+      <h1 style="color: red">Help Page</h1>
+      <p>This page is to help you out with your queires</p>
+    </header>
+    <main class="pageShell contentSection">
+      <form action="#" onsubmit="submitted()">
+        <textarea name="" id="" rows="4" required="true"> </textarea>
+        <br />
+        <input type="submit" />
+      </form>
+    </main>
+    <p>Feel free to ask anything</p>
+    <output style="color: green" id="output-text"></output>
+  </body>
+</html>
