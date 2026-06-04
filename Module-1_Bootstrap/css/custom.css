@@ -1,0 +1,14 @@
+:root {
+  --bs-primary: #0f766e;
+  --bs-border-radius: 0.75rem;
+}
+
+.btn-primary {
+  background-color: #0f766e;
+  border-color: #0f766e;
+}
+
+.btn-primary:hover {
+  background-color: #115e59;
+  border-color: #115e59;
+}

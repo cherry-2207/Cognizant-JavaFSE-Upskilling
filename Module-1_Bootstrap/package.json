@@ -1,0 +1,15 @@
+{
+  "name": "module-1-bootstrap-exercises",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "sass scss/custom.scss css/custom.css",
+    "watch:css": "sass --watch scss/custom.scss css/custom.css"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "sass": "^1.77.0"
+  }
+}
