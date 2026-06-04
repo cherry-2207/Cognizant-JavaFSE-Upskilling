@@ -1,0 +1,18 @@
+[
+  {
+    "id": 101,
+    "name": "Mock API Music Meetup",
+    "date": "2026-07-12",
+    "seats": 30,
+    "category": "Music",
+    "location": "City Hall"
+  },
+  {
+    "id": 102,
+    "name": "Mock API Baking Class",
+    "date": "2026-07-18",
+    "seats": 16,
+    "category": "Workshop",
+    "location": "Community Center"
+  }
+]

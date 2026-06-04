@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local Community Event Portal - JavaScript</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./main.js" defer></script>
+  </head>
+
+  <body>
+    <header id="mainHeader">
+      <nav class="siteNav" aria-label="Main navigation">
+        <ul>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#registration">Register</a></li>
+          <li><a href="#async">Async Demo</a></li>
+          <li><a href="#debug">Debug Notes</a></li>
+        </ul>
+      </nav>
+
+      <div class="heroContent">
+        <h1>Local Community Event Portal</h1>
+        <p id="eventInfo">Loading featured event details...</p>
+        <button id="registerBtn" class="cta-button" type="button">jQuery Quick Register</button>
+      </div>
+    </header>
+
+    <main class="pageShell">
+      <section class="contentSection">
+        <h2>Event Filters</h2>
+        <div class="filterBar">
+          <label for="categoryFilter">Filter by category</label>
+          <select id="categoryFilter">
+            <option value="all">All Categories</option>
+            <option value="Music">Music</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Food">Food</option>
+            <option value="Service">Service</option>
+          </select>
+
+          <label for="locationFilter">Filter by location</label>
+          <select id="locationFilter">
+            <option value="all">All Locations</option>
+            <option value="City Hall">City Hall</option>
+            <option value="Community Center">Community Center</option>
+            <option value="River Park">River Park</option>
+          </select>
+
+          <label for="searchInput">Quick search</label>
+          <input id="searchInput" type="search" placeholder="Type an event name" />
+        </div>
+      </section>
+
+      <section id="events" class="contentSection">
+        <h2>Upcoming Events</h2>
+        <p class="sectionDescription">
+          Cards are created with JavaScript using querySelector(), createElement(), and append().
+        </p>
+        <div id="eventContainer" class="eventGrid"></div>
+      </section>
+
+      <section id="registration" class="contentSection">
+        <h2>Registration Form</h2>
+        <form id="registrationForm" novalidate>
+          <label for="userName">Name</label>
+          <input id="userName" name="name" type="text" />
+          <span class="error" id="nameError"></span>
+
+          <label for="userEmail">Email</label>
+          <input id="userEmail" name="email" type="email" />
+          <span class="error" id="emailError"></span>
+
+          <label for="selectedEvent">Select Event</label>
+          <select id="selectedEvent" name="eventId"></select>
+          <span class="error" id="eventError"></span>
+
+          <button class="cta-button" type="submit">Submit Registration</button>
+        </form>
+        <p id="formStatus" class="statusMessage"></p>
+      </section>
+
+      <section id="async" class="contentSection">
+        <h2>Async Fetch Demo</h2>
+        <button id="loadRemoteEvents" class="secondaryButton" type="button">Load Mock Events</button>
+        <div id="loadingSpinner" class="spinner hidden">Loading...</div>
+        <pre id="remoteOutput"></pre>
+      </section>
+
+      <section class="contentSection">
+        <h2>Object and Array Output</h2>
+        <pre id="objectOutput"></pre>
+        <pre id="arrayOutput"></pre>
+      </section>
+
+      <section id="debug" class="contentSection debugChecklist">
+        <h2>Debugging and Framework Notes</h2>
+        <ul>
+          <li>Open DevTools Console to see setup logs, registrations, and fetch payloads.</li>
+          <li>Use the Network tab to inspect <code>mock-events.json</code> and POST requests.</li>
+          <li>Add breakpoints inside <code>registerUser()</code> and the form submit handler.</li>
+          <li>React or Vue helps by organizing UI into reusable components with predictable state updates.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="siteFooter">
+      <p>&copy; Community Events Portal</p>
+    </footer>
+  </body>
+</html>
